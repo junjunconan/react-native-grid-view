@@ -13,7 +13,7 @@ var CollectionView = React.createClass({
     groupItems: function(items, itemsPerRow) {
         var itemsGroups = [];
         var group = [];
-        items.forEach(function(item) {
+        items && items.length > 0 && items.forEach(function(item) {
           if (group.length === itemsPerRow) {
             itemsGroups.push(group);
             group = [item];
@@ -28,13 +28,13 @@ var CollectionView = React.createClass({
 
         return itemsGroups;
     },
-    renderGroup: function(group) {
+    renderGroup: function(group, section, row) {
       var that = this;
       var items = group.map(function(item, index) {
-        return that.props.renderItem(item, index);
+        return that.props.renderItem(item, index, row);
       });
       return (
-        <View style={styles.group}>
+        <View style={[styles.group, that.props.rowStyle]}>
           {items}
         </View>
       );
